@@ -1,10 +1,5 @@
 const PersonalDetailsForm = ({ updatePersonalData, personalData }) => {
-  const handleInputChange = (setter) => (e) => {
-    console.log(`Setting ${setter} to ${e.target.value}`);
-    setter(e.target.value);
-  };
-
-  const forms = [
+  const PersonalDatas = [
     {
       label: "Full Name",
       value: personalData.name,
@@ -32,10 +27,14 @@ const PersonalDetailsForm = ({ updatePersonalData, personalData }) => {
     },
   ];
 
+  const handleInputChange = (setter) => (e) => {
+    setter(e.target.value);
+  };
+
   return (
     <div className="p-8 text-[#2a2929] space-y-4">
       <h1 className="text-xl font-bold">Personal Details</h1>
-      {forms.map(({ label, value, setter }) => (
+      {PersonalDatas.map(({ label, value, setter }) => (
         <div key={label} className="flex flex-col gap-1">
           <label htmlFor={label} className="font-semibold">
             {label}

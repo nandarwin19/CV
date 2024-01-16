@@ -1,27 +1,27 @@
-import { MdWork } from "react-icons/md";
-
-const Education = () => {
+import { GiGraduateCap } from "react-icons/gi";
+const Education = ({ educationData }) => {
+  const { school, degree, start, end } = educationData;
   return (
     <div className="mb-8">
-      <div className="w-full  bg-[#585454] p-2 text-white relative flex items-center">
-        <MdWork className="w-10 h-10 border border-[#474444] rounded-full p-2 absolute bg-white text-[#474444]" />
+      <div className="w-full bg-[#585454] p-2 text-white relative flex items-center">
+        {/* <div className="border border-[#474444] flex items-center justify-center"> */}
+        <GiGraduateCap className="w-10 h-10 border border-[#474444] rounded-full p-2 absolute bg-white text-[#474444]" />
 
-        <p className="text-2xl font-bold ml-14 uppercase">Work Experiences</p>
+        <p className="text-2xl font-bold ml-14 uppercase">Education</p>
       </div>
-      <div className="ml-16 mt-4">
-        <div className="flex gap-8">
-          <p className="font-bold">2015-2016</p>
-          <div className="flex flex-col gap-1">
-            <p className="font-bold">Company Name</p>
-            <p>Position</p>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat
-              perferendis odit voluptatibus debitis illum. Et nam tempore
-              inventore obcaecati minima assumenda. Deleniti sint dignissimos
-              quidem consequatur eveniet fugiat ut modi neque possimus aut. Sed
-              quasi facere quod recusandae totam nesciunt eius placeat beatae.
-              Atque voluptates laboriosam ipsam et dolores reprehenderit!
+      <div className="ml-16 mt-4 text-black/80">
+        <div className="flex">
+          <div
+            className="font-bold flex-shrink-0"
+            style={{ width: "150px" }} //*******
+          >
+            <p className="font-bold">
+              {start}-{end}
             </p>
+          </div>
+          <div className="flex flex-col gap-1">
+            <p className="font-bold text-lg">{school}</p>
+            <p>{degree}</p>
           </div>
         </div>
       </div>

@@ -1,22 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 import Header from "./components/Header";
-import Info from "./components/Info";
 import PersonalDetailsForm from "./components/PersonalDetailsForm";
+import EducationForm from "./components/Education/EducationForm";
+import Education from "./components/Education/Education";
+import Skills from "./components/Skills/Skills";
+import Experience from "./components/Experiences/Experience";
+import {
+  initialEducation,
+  initialExperience,
+  initialUserData,
+} from "./components/constant/constant";
 import ExperienceForm from "./components/Experiences/ExperienceForm";
 
-const initialUserData = {
-  name: "Nay Yar",
-  email: "test@gmail.com",
-  phone: "09995454678",
-  address: "Mandalay, Myanmar",
-  career: "Front-end Developer",
-};
-
 function App() {
-  // Assume initialUserData is an object representing your initial state.
   const [personalData, setPersonalData] = useState(initialUserData);
+  const [educationData, setEducationData] = useState(initialEducation);
+  const [hiddenEducation, setHiddenEducation] = useState(true);
+  const [hiddenExperience, setHiddenExperience] = useState(true);
+  const [experienceData, setExperienceData] = useState(initialExperience);
 
   // updatePersonalData is a function that takes two arguments:
   // `data` is the key of the personalData object we want to update.
@@ -31,6 +34,24 @@ function App() {
     }));
   };
 
+  const updateEducationData = (data, value) => {
+    setEducationData((prevData) => ({
+      ...prevData,
+      [data]: value,
+    }));
+  };
+
+  const updateExperienceData = (data, value) => {
+    setExperienceData((prevData) => ({
+      ...prevData,
+      [data]: value,
+    }));
+  };
+
+  useEffect(() => {
+    console.log(experienceData);
+  }, []);
+
   return (
     <div className="flex bg-[#F0f0f0]">
       <div className="p-8 w-1/2">
@@ -39,14 +60,30 @@ function App() {
             updatePersonalData={updatePersonalData}
             personalData={personalData}
           />
-          <ExperienceForm />
-          <ExperienceForm />
+          <EducationForm
+            updateEducationData={updateEducationData}
+            educationData={educationData}
+            setHiddenEducation={setHiddenEducation}
+            hiddenEducation={hiddenEducation}
+          />
+
+          <ExperienceForm
+            experienceData={experienceData}
+            updateExperienceData={updateExperienceData}
+            hiddenExperience={hiddenExperience}
+            setHiddenExperience={setHiddenExperience}
+          />
         </div>
       </div>
+
       <div className="p-8 w-1/2">
         <div className="shadow-2xl overflow-hidden">
           <Header personalData={personalData} />
-          <Info />
+          <div className="p-8">
+            {hiddenEducation && <Education educationData={educationData} />}
+            {hiddenExperience && <Experience experienceData={experienceData} />}
+            <Skills />
+          </div>
         </div>
       </div>
     </div>

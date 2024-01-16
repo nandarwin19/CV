@@ -14,6 +14,7 @@ const ExperienceForm = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [eyeOpen, setEyeOpen] = useState(false);
+  const [formOpen, setFormOpen] = useState(false);
 
   const ExperienceDatas = [
     {
@@ -76,16 +77,27 @@ const ExperienceForm = ({
     setOpen(false);
   };
 
-  const hiddenData = () => {
+  const hiddenData = (e) => {
+    e.stopPropagation(); // Stop event propagation to prevent formOpenToggle from being triggered
     setEyeOpen(!eyeOpen);
     setHiddenExperience(!hiddenExperience);
+    setFormOpen(false);
+  };
+
+  const formOpenToggle = () => {
+    setFormOpen(!formOpen);
+  };
+
+  const experienceToggle = () => {
+    setOpen(!open);
+    setFormOpen(false);
   };
 
   return (
     <div className="p-8 relative max-w-lg">
       <div
+        onClick={experienceToggle}
         tabIndex={0}
-        onClick={() => setOpen((prev) => !prev)}
         role="button"
         className="w-full flex justify-between items-center bg-[#585454] rounded-lg p-4 py-6 text-white relative"
       >
@@ -106,6 +118,7 @@ const ExperienceForm = ({
       </div>
 
       <motion.div
+        onClick={formOpenToggle}
         initial={{ scaleY: 0 }}
         animate={open ? "open" : "closed"}
         variants={{
@@ -127,50 +140,52 @@ const ExperienceForm = ({
         </div>
       </motion.div>
 
-      <motion.form
-        initial={{ scaleY: 0 }}
-        animate={open ? "open" : "closed"}
-        variants={{
-          open: { scaleY: 1 },
-          closed: { scaleY: 0 },
-        }}
-        style={{ originY: "top" }}
-        className={`${
-          open ? "block" : "hidden"
-        } space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md`}
-      >
-        {ExperienceDatas.map(({ name, label, value, setter }) => (
-          <div key={label} className="flex flex-col gap-1">
-            <label htmlFor={label} className="font-semibold text-black/80">
-              {name}
-            </label>
-            <input
-              type="text"
-              name={label}
-              value={value}
-              placeholder={`Enter your ${label.toLowerCase()}`}
-              className="input w-full border border-[#ccc] input-bordered bg-[#f3f4f6] text-black/70"
-              onChange={handleInputChange(setter)}
-            />
-          </div>
-        ))}
+      {formOpen && (
+        <motion.form
+          initial={{ scaleY: 0 }}
+          animate={open ? "open" : "closed"}
+          variants={{
+            open: { scaleY: 1 },
+            closed: { scaleY: 0 },
+          }}
+          style={{ originY: "top" }}
+          className={`${
+            open ? "block" : "hidden"
+          } space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md`}
+        >
+          {ExperienceDatas.map(({ name, label, value, setter }) => (
+            <div key={label} className="flex flex-col gap-1">
+              <label htmlFor={label} className="font-semibold text-black/80">
+                {name}
+              </label>
+              <input
+                type="text"
+                name={label}
+                value={value}
+                placeholder={`Enter your ${label.toLowerCase()}`}
+                className="input w-full border border-[#ccc] input-bordered bg-[#f3f4f6] text-black/70"
+                onChange={handleInputChange(setter)}
+              />
+            </div>
+          ))}
 
-        <div className="flex items-center justify-between">
-          <button
-            onClick={deleteData}
-            type="button"
-            className="w-20 h-9 border rounded-md border-zinc-600 text-zinc-600"
-          >
-            Delete
-          </button>
-          <button
-            onClick={saveData}
-            className="w-20 h-9 border rounded-md border-[#187ff5] bg-[#187ff5] text-white"
-          >
-            Save
-          </button>
-        </div>
-      </motion.form>
+          <div className="flex items-center justify-between">
+            <button
+              onClick={deleteData}
+              type="button"
+              className="w-20 h-9 border rounded-md border-zinc-600 text-zinc-600"
+            >
+              Delete
+            </button>
+            <button
+              onClick={saveData}
+              className="w-20 h-9 border rounded-md border-[#187ff5] bg-[#187ff5] text-white"
+            >
+              Save
+            </button>
+          </div>
+        </motion.form>
+      )}
     </div>
   );
 };

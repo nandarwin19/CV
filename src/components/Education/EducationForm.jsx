@@ -64,7 +64,8 @@ const EducationForm = ({
     setOpen(false);
   };
 
-  const hiddenData = () => {
+  const hiddenData = (e) => {
+    e.stopPropagation(); // Stop event propagation to prevent formOpenToggle from being triggered
     setEyeOpen(!eyeOpen);
     setHiddenEducation(!hiddenEducation);
     setFormOpen(false);
@@ -117,7 +118,7 @@ const EducationForm = ({
         onClick={formOpenToggle}
       >
         <p className="font-bold text-black/80">{educationData.school}</p>
-        <div onClick={hiddenData}>
+        <div onClick={(e) => hiddenData(e)}>
           {eyeOpen ? (
             <BsEyeSlashFill className="text-2xl cursor-pointer" />
           ) : (

@@ -13,10 +13,10 @@ const Experience = ({ edata }) => {
             <div className="flex">
               <div
                 className=" flex-shrink-0 flex flex-col gap-1 text-wrap"
-                style={({ width: "150px" }, { whiteSpace: "normal" })} //*******
+                style={{ width: "150px" }} //*******
               >
                 {start && end && (
-                  <p style={{ whiteSpace: "nowrap" }} className="font-bold">
+                  <p className="font-bold">
                     {start}-{end}
                   </p>
                 )}

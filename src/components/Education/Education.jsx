@@ -4,7 +4,7 @@ const Education = ({ edata }) => {
     <>
       {!hidden ? (
         <div className="mb-4">
-          <div className="ml-16 mt-4 text-black/80">
+          <div className="ml-0 md:ml-16 mt-4 text-black/80">
             <div className="flex">
               <div
                 className="font-bold flex-shrink-0"

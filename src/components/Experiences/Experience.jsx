@@ -9,11 +9,11 @@ const Experience = ({ edata }) => {
     <>
       {!hidden ? (
         <div className="mb-8">
-          <div className="ml-16 mt-4 text-black/80">
+          <div className="ml-0 md:ml-16 mt-4 text-black/80">
             <div className="flex">
               <div
-                className=" flex-shrink-0 flex flex-col gap-1"
-                style={{ width: "150px" }} //*******
+                className=" flex-shrink-0 flex flex-col gap-1 text-wrap"
+                style={({ width: "150px" }, { whiteSpace: "normal" })} //*******
               >
                 {start && end && (
                   <p style={{ whiteSpace: "nowrap" }} className="font-bold">

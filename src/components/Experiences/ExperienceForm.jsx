@@ -87,16 +87,18 @@ const ExperienceForm = ({
   };
 
   return (
-    <div className="p-8 relative max-w-lg">
+    <div className="p-8 relative w-full">
       <div
         onClick={experienceToggle}
         tabIndex={0}
         role="button"
-        className="w-full flex justify-between items-center bg-[#585454] rounded-lg p-4 py-6 text-white relative"
+        className="w-full flex justify-between items-center bg-[#585454] rounded-lg p-4 md:py-6 text-white relative"
       >
-        <div>
+        <div className="flex items-center">
           <MdWork className="w-10 h-10 border border-[#474444] rounded-full p-2 absolute bg-white text-[#474444]" />
-          <p className="text-2xl font-bold ml-14 uppercase">Experience</p>
+          <p className="text-xl md:text-2xl font-bold ml-14 uppercase">
+            Experience
+          </p>
         </div>
 
         <motion.span
@@ -123,7 +125,7 @@ const ExperienceForm = ({
             style={{ originY: "top" }}
             className={`${
               open ? "block" : "hidden"
-            } flex items-center justify-between my-2 space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md cursor-pointer`}
+            } flex items-center justify-between my-2 space-y-4 w-full  p-4 bg-white shadow-lg rounded-md cursor-pointer`}
           >
             <div className="w-full my-1 flex items-center justify-between overflow-x-hidden">
               <p
@@ -155,7 +157,7 @@ const ExperienceForm = ({
           onClick={formOpenToggle}
           className={`${
             open ? "block" : "hidden"
-          } flex items-center justify-center my-2 space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md cursor-pointer`}
+          } flex items-center justify-center my-2 space-y-4 w-full  p-4 bg-white shadow-lg rounded-md cursor-pointer`}
         >
           + experience
         </motion.button>
@@ -172,7 +174,7 @@ const ExperienceForm = ({
           style={{ originY: "top" }}
           className={`${
             open ? "block" : "hidden"
-          } space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md`}
+          } space-y-4 w-full  p-4 bg-white shadow-lg rounded-md`}
         >
           {ExperienceDatas.map(({ label, value, setter }) => (
             <div key={label} className="flex flex-col gap-1">

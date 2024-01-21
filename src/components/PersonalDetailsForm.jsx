@@ -45,7 +45,7 @@ const PersonalDetailsForm = ({ updatePersonalData, personalData }) => {
             onChange={handleInputChange(setter)}
             name={label.toLowerCase()}
             placeholder={`Enter your ${label.toLowerCase()}`}
-            className="input max-w-md border border-[#ccc] input-bordered bg-[#f3f4f6]"
+            className="input w-full border border-[#ccc] input-bordered bg-[#f3f4f6]"
           />
         </div>
       ))}

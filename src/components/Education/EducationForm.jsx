@@ -76,16 +76,18 @@ const EducationForm = ({
   };
 
   return (
-    <div className="p-8 pb-4 relative max-w-lg">
+    <div className="p-8 pb-4 relative w-full">
       <div
         tabIndex={0}
         onClick={educationToggle}
         role="button"
-        className="w-full flex justify-between items-center bg-[#585454] rounded-lg p-4 py-6 text-white relative"
+        className="w-full flex justify-between items-center bg-[#585454] rounded-lg p-4 md:py-6 text-white relative"
       >
-        <div>
+        <div className="flex items-center">
           <GiGraduateCap className="w-10 h-10 border border-[#474444] rounded-full p-2 absolute bg-white text-[#474444]" />
-          <p className="text-2xl font-bold ml-14 uppercase">Education</p>
+          <p className="text-xl md:text-2xl font-bold ml-14 uppercase">
+            Education
+          </p>
         </div>
         <motion.span
           animate={open ? "open" : "closed"}
@@ -111,7 +113,7 @@ const EducationForm = ({
             style={{ originY: "top" }}
             className={`${
               open ? "block" : "hidden"
-            } flex items-center justify-between my-2 space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md cursor-pointer`}
+            } flex items-center justify-between my-2 space-y-4 w-full  p-4 bg-white shadow-lg rounded-md cursor-pointer`}
           >
             <div className="w-full my-1 flex items-center justify-between overflow-x-hidden">
               <p
@@ -143,7 +145,7 @@ const EducationForm = ({
           onClick={formOpenToggle}
           className={`${
             open ? "block" : "hidden"
-          } flex items-center justify-center my-2 space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md cursor-pointer`}
+          }  flex items-center justify-center my-2 space-y-4 w-full  p-4 bg-white shadow-lg rounded-md cursor-pointer`}
         >
           + Education
         </motion.button>
@@ -160,7 +162,7 @@ const EducationForm = ({
           style={{ originY: "top" }}
           className={`${
             open ? "block" : "hidden"
-          } space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md`}
+          } space-y-4 w-full  p-4 bg-white shadow-lg rounded-md`}
         >
           {EducationDatas.map(({ label, value, setter }) => (
             <div key={label} className="flex flex-col gap-1">

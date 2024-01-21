@@ -67,9 +67,9 @@ function App() {
   }, [addExperienceEntry]);
 
   return (
-    <div className="flex bg-[#F0f0f0]">
-      <div className="p-8 w-1/2">
-        <div className="shadow-2xl max-w-xl">
+    <div className="flex md:flex-row flex-col bg-[#F0f0f0]">
+      <div className="p-8 pb-12 w-full 2xl:w-1/2">
+        <div className="shadow-2xl max-w-xl max-auto">
           <PersonalDetailsForm
             updatePersonalData={updatePersonalData}
             personalData={personalData}
@@ -94,15 +94,17 @@ function App() {
         </div>
       </div>
 
-      <div className="p-8 w-1/2">
+      <div className="p-8 w-full 2xl:w-1/2">
         <div className="shadow-2xl overflow-hidden">
-          <Header personalData={personalData} />
+          <div className="bg-[#2a2929] p-8 text-white">
+            <Header personalData={personalData} />
+          </div>
           <div className="p-8">
             {educationData && educationData.length > 0 && (
               <>
                 <div className="w-full bg-[#585454] p-2  text-white relative flex items-center">
-                  <GiGraduateCap className="w-10 h-10 border border-[#474444] rounded-full p-2 absolute bg-white text-[#474444]" />
-                  <p className="text-2xl font-bold ml-14 uppercase">
+                  <GiGraduateCap className="w-9 h-9 md:w-10 md:h-10 border border-[#474444] rounded-full p-2 absolute bg-white text-[#474444]" />
+                  <p className="text-xl md:text-2xl font-bold ml-14 uppercase">
                     Education
                   </p>
                 </div>
@@ -115,9 +117,9 @@ function App() {
             {experienceData && experienceData.length > 0 && (
               <>
                 <div className=" w-full  bg-[#585454] p-2 text-white relative flex items-center">
-                  <MdWork className="w-10 h-10 border border-[#474444] rounded-full p-2 absolute bg-white text-[#474444]" />
+                  <MdWork className="w-9 h-9 md:w-10 md:h-10 border border-[#474444] rounded-full p-2 absolute bg-white text-[#474444]" />
 
-                  <p className="text-2xl font-bold ml-14 uppercase">
+                  <p className="text-xl md:text-2xl font-bold ml-14 uppercase">
                     Work Experiences
                   </p>
                 </div>

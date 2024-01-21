@@ -1,87 +1,80 @@
 import { useState } from "react";
-import { GiGraduateCap } from "react-icons/gi";
 import { FiChevronDown } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { IoEyeSharp } from "react-icons/io5";
 import { BsEyeSlashFill } from "react-icons/bs";
 import { MdWork } from "react-icons/md";
+import { data } from "autoprefixer";
 
 const ExperienceForm = ({
-  updateExperienceData,
   experienceData,
-  hiddenExperience,
-  setHiddenExperience,
+  setExperienceData,
+  newExperience,
+  updateExperienceData,
+  addExperienceEntry,
 }) => {
   const [open, setOpen] = useState(false);
-  const [eyeOpen, setEyeOpen] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
 
   const ExperienceDatas = [
     {
-      name: "Company Name",
-      label: "company",
-      value: experienceData.company,
+      label: "Company Name",
+      value: newExperience.company,
       setter: (value) => updateExperienceData("company", value),
     },
     {
-      name: "Position",
-      label: "position",
-      value: experienceData.position,
+      label: "Position",
+      value: newExperience.position,
       setter: (value) => updateExperienceData("position", value),
     },
     {
-      name: "Start Date",
-      label: "Start",
-      value: experienceData.start,
+      label: "Start Date",
+      value: newExperience.start,
       setter: (value) => updateExperienceData("start", value),
     },
     {
-      name: "End Date",
-      label: "End",
-      value: experienceData.end,
+      label: "End Date",
+      value: newExperience.end,
       setter: (value) => updateExperienceData("end", value),
     },
     {
-      name: "Location",
-      label: "location",
-      value: experienceData.location,
+      label: "Location",
+      value: newExperience.location,
       setter: (value) => updateExperienceData("location", value),
     },
     {
-      name: "Description",
       label: "Description",
-      value: experienceData.description,
+      value: newExperience.description,
       setter: (value) => updateExperienceData("description", value),
     },
   ];
+
+  const hiddenData = (e, dataIndex) => {
+    e.stopPropagation();
+    setExperienceData((prevExperienceData) => {
+      const updateExperienceData = [...prevExperienceData];
+      updateExperienceData[dataIndex] = {
+        ...updateExperienceData[dataIndex],
+        hidden: !updateExperienceData[dataIndex].hidden,
+      };
+      return updateExperienceData;
+    });
+  };
 
   const handleInputChange = (setter) => (e) => {
     setter(e.target.value);
   };
 
   const deleteData = () => {
-    const newData = ExperienceDatas.map(({ label, setter }) => ({
-      label,
-      value: "",
-      setter,
-    }));
-
-    // Update the education data using the new array
-    newData.forEach(({ label, value }) => {
-      updateExperienceData(label.toLowerCase(), value);
+    ExperienceDatas.forEach(({ setter }) => {
+      setter("");
     });
   };
 
   const saveData = (e) => {
     e.preventDefault();
+    addExperienceEntry();
     setOpen(false);
-  };
-
-  const hiddenData = (e) => {
-    e.stopPropagation(); // Stop event propagation to prevent formOpenToggle from being triggered
-    setEyeOpen(!eyeOpen);
-    setHiddenExperience(!hiddenExperience);
-    setFormOpen(false);
   };
 
   const formOpenToggle = () => {
@@ -117,28 +110,56 @@ const ExperienceForm = ({
         </motion.span>
       </div>
 
-      <motion.div
-        onClick={formOpenToggle}
-        initial={{ scaleY: 0 }}
-        animate={open ? "open" : "closed"}
-        variants={{
-          open: { scaleY: 1 },
-          closed: { scaleY: 0 },
-        }}
-        style={{ originY: "top" }}
-        className={`${
-          open ? "block" : "hidden"
-        } flex items-center justify-between my-2 space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md`}
-      >
-        <p className="font-bold text-black/80">{experienceData.company}</p>
-        <div onClick={hiddenData}>
-          {eyeOpen ? (
-            <BsEyeSlashFill className="text-2xl cursor-pointer" />
-          ) : (
-            <IoEyeSharp className="text-2xl cursor-pointer" />
-          )}
-        </div>
-      </motion.div>
+      {experienceData.length > 0 &&
+        experienceData.map((data, index) => (
+          <motion.div
+            key={index}
+            initial={{ scaleY: 0 }}
+            animate={open ? "open" : "closed"}
+            variants={{
+              open: { scaleY: 1 },
+              closed: { scaleY: 0 },
+            }}
+            style={{ originY: "top" }}
+            className={`${
+              open ? "block" : "hidden"
+            } flex items-center justify-between my-2 space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md cursor-pointer`}
+          >
+            <div className="w-full my-1 flex items-center justify-between overflow-x-hidden">
+              <p
+                style={{ whiteSpace: "normal", overflow: "hidden" }}
+                className="mr-4 font-bold text-black/80"
+              >
+                {data.company}
+              </p>
+              <div onClick={(e) => hiddenData(e, index)}>
+                {data.hidden ? (
+                  <BsEyeSlashFill className="text-2xl" />
+                ) : (
+                  <IoEyeSharp className="text-2xl" />
+                )}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+
+      {open && !formOpen && (
+        <motion.button
+          initial={{ scaleY: 0 }}
+          animate={open ? "open" : "closed"}
+          variants={{
+            open: { scaleY: 1 },
+            closed: { scaleY: 0 },
+          }}
+          style={{ originY: "top" }}
+          onClick={formOpenToggle}
+          className={`${
+            open ? "block" : "hidden"
+          } flex items-center justify-center my-2 space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md cursor-pointer`}
+        >
+          + experience
+        </motion.button>
+      )}
 
       {formOpen && (
         <motion.form
@@ -153,10 +174,10 @@ const ExperienceForm = ({
             open ? "block" : "hidden"
           } space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md`}
         >
-          {ExperienceDatas.map(({ name, label, value, setter }) => (
+          {ExperienceDatas.map(({ label, value, setter }) => (
             <div key={label} className="flex flex-col gap-1">
               <label htmlFor={label} className="font-semibold text-black/80">
-                {name}
+                {label}
               </label>
               <input
                 type="text"

@@ -6,38 +6,34 @@ import { IoEyeSharp } from "react-icons/io5";
 import { BsEyeSlashFill } from "react-icons/bs";
 
 const EducationForm = ({
+  newEducation,
   updateEducationData,
+  addEducationEntry,
   educationData,
-  setHiddenEducation,
-  hiddenEducation,
+  setEducationData,
 }) => {
   const [open, setOpen] = useState(false);
-  const [eyeOpen, setEyeOpen] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
 
   const EducationDatas = [
     {
-      name: "School",
-      label: "School",
-      value: educationData.school,
+      label: "School/College",
+      value: newEducation.school,
       setter: (value) => updateEducationData("school", value),
     },
     {
-      name: "Degree",
       label: "Degree",
-      value: educationData.degree,
+      value: newEducation.degree,
       setter: (value) => updateEducationData("degree", value),
     },
     {
-      name: "Start Date",
-      label: "Start",
-      value: educationData.start,
+      label: "Start Date",
+      value: newEducation.start,
       setter: (value) => updateEducationData("start", value),
     },
     {
-      name: "End Date",
-      label: "End",
-      value: educationData.end,
+      label: "End Date",
+      value: newEducation.end,
       setter: (value) => updateEducationData("end", value),
     },
   ];
@@ -47,28 +43,27 @@ const EducationForm = ({
   };
 
   const deleteData = () => {
-    const newData = forms.map(({ label, setter }) => ({
-      label,
-      value: "",
-      setter,
-    }));
-
-    // Update the education data using the new array
-    newData.forEach(({ label, value }) => {
-      updateEducationData(label.toLowerCase(), value);
+    EducationDatas.forEach(({ setter }) => {
+      setter("");
     });
   };
 
   const saveData = (e) => {
     e.preventDefault();
+    addEducationEntry();
     setOpen(false);
   };
 
-  const hiddenData = (e) => {
-    e.stopPropagation(); // Stop event propagation to prevent formOpenToggle from being triggered
-    setEyeOpen(!eyeOpen);
-    setHiddenEducation(!hiddenEducation);
-    setFormOpen(false);
+  const hiddenData = (e, dataIndex) => {
+    e.stopPropagation();
+    setEducationData((prevEducationData) => {
+      const updatedEducationData = [...prevEducationData];
+      updatedEducationData[dataIndex] = {
+        ...updatedEducationData[dataIndex],
+        hidden: !updatedEducationData[dataIndex].hidden,
+      };
+      return updatedEducationData;
+    });
   };
 
   const formOpenToggle = () => {
@@ -81,7 +76,7 @@ const EducationForm = ({
   };
 
   return (
-    <div className="p-8 relative max-w-lg">
+    <div className="p-8 pb-4 relative max-w-lg">
       <div
         tabIndex={0}
         onClick={educationToggle}
@@ -92,7 +87,6 @@ const EducationForm = ({
           <GiGraduateCap className="w-10 h-10 border border-[#474444] rounded-full p-2 absolute bg-white text-[#474444]" />
           <p className="text-2xl font-bold ml-14 uppercase">Education</p>
         </div>
-
         <motion.span
           animate={open ? "open" : "closed"}
           variants={{
@@ -104,28 +98,56 @@ const EducationForm = ({
         </motion.span>
       </div>
 
-      <motion.div
-        initial={{ scaleY: 0 }}
-        animate={open ? "open" : "closed"}
-        variants={{
-          open: { scaleY: 1 },
-          closed: { scaleY: 0 },
-        }}
-        style={{ originY: "top" }}
-        className={`${
-          open ? "block" : "hidden"
-        } flex items-center justify-between my-2 space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md`}
-        onClick={formOpenToggle}
-      >
-        <p className="font-bold text-black/80">{educationData.school}</p>
-        <div onClick={(e) => hiddenData(e)}>
-          {eyeOpen ? (
-            <BsEyeSlashFill className="text-2xl cursor-pointer" />
-          ) : (
-            <IoEyeSharp className="text-2xl cursor-pointer" />
-          )}
-        </div>
-      </motion.div>
+      {educationData.length > 0 &&
+        educationData.map((data, index) => (
+          <motion.div
+            key={index}
+            initial={{ scaleY: 0 }}
+            animate={open ? "open" : "closed"}
+            variants={{
+              open: { scaleY: 1 },
+              closed: { scaleY: 0 },
+            }}
+            style={{ originY: "top" }}
+            className={`${
+              open ? "block" : "hidden"
+            } flex items-center justify-between my-2 space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md cursor-pointer`}
+          >
+            <div className="w-full my-1 flex items-center justify-between overflow-x-hidden">
+              <p
+                style={{ whiteSpace: "normal", overflow: "hidden" }}
+                className="mr-4 font-bold text-black/80"
+              >
+                {data.school}
+              </p>
+              <div onClick={(e) => hiddenData(e, index)}>
+                {data.hidden ? (
+                  <BsEyeSlashFill className="text-2xl" />
+                ) : (
+                  <IoEyeSharp className="text-2xl" />
+                )}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+
+      {open && !formOpen && (
+        <motion.button
+          initial={{ scaleY: 0 }}
+          animate={open ? "open" : "closed"}
+          variants={{
+            open: { scaleY: 1 },
+            closed: { scaleY: 0 },
+          }}
+          style={{ originY: "top" }}
+          onClick={formOpenToggle}
+          className={`${
+            open ? "block" : "hidden"
+          } flex items-center justify-center my-2 space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md cursor-pointer`}
+        >
+          + Education
+        </motion.button>
+      )}
 
       {formOpen && (
         <motion.form
@@ -140,10 +162,10 @@ const EducationForm = ({
             open ? "block" : "hidden"
           } space-y-4 w-[450px] p-4 bg-white shadow-lg rounded-md`}
         >
-          {EducationDatas.map(({ name, label, value, setter }) => (
+          {EducationDatas.map(({ label, value, setter }) => (
             <div key={label} className="flex flex-col gap-1">
               <label htmlFor={label} className="font-semibold text-black/80">
-                {name}
+                {label}
               </label>
               <input
                 type="text"

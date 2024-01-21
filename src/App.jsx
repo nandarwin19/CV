@@ -5,7 +5,6 @@ import Header from "./components/Header";
 import PersonalDetailsForm from "./components/PersonalDetailsForm";
 import EducationForm from "./components/Education/EducationForm";
 import Education from "./components/Education/Education";
-import Skills from "./components/Skills/Skills";
 import Experience from "./components/Experiences/Experience";
 import {
   initialEducation,
@@ -13,13 +12,18 @@ import {
   initialUserData,
 } from "./components/constant/constant";
 import ExperienceForm from "./components/Experiences/ExperienceForm";
+import { GiGraduateCap } from "react-icons/gi";
+import { MdWork } from "react-icons/md";
 
 function App() {
   const [personalData, setPersonalData] = useState(initialUserData);
-  const [educationData, setEducationData] = useState(initialEducation);
-  const [hiddenEducation, setHiddenEducation] = useState(true);
-  const [hiddenExperience, setHiddenExperience] = useState(true);
-  const [experienceData, setExperienceData] = useState(initialExperience);
+
+  // For education
+  const [educationData, setEducationData] = useState([]);
+  const [newEducation, setNewEducation] = useState(initialEducation);
+
+  const [experienceData, setExperienceData] = useState([]);
+  const [newExperience, setNewExperience] = useState(initialExperience);
 
   // updatePersonalData is a function that takes two arguments:
   // `data` is the key of the personalData object we want to update.
@@ -35,22 +39,32 @@ function App() {
   };
 
   const updateEducationData = (data, value) => {
-    setEducationData((prevData) => ({
+    setNewEducation((prevData) => ({
       ...prevData,
       [data]: value,
     }));
   };
 
   const updateExperienceData = (data, value) => {
-    setExperienceData((prevData) => ({
+    setNewExperience((prevData) => ({
       ...prevData,
       [data]: value,
     }));
   };
 
+  const addEducationEntry = () => {
+    setEducationData((prevData) => [...prevData, newEducation]);
+    setNewEducation(initialEducation);
+  };
+
+  const addExperienceEntry = () => {
+    setExperienceData((prevData) => [...prevData, newExperience]);
+    setNewExperience(initialEducation);
+  };
+
   useEffect(() => {
     console.log(experienceData);
-  }, []);
+  }, [addExperienceEntry]);
 
   return (
     <div className="flex bg-[#F0f0f0]">
@@ -61,17 +75,21 @@ function App() {
             personalData={personalData}
           />
           <EducationForm
-            updateEducationData={updateEducationData}
             educationData={educationData}
-            setHiddenEducation={setHiddenEducation}
-            hiddenEducation={hiddenEducation}
+            setEducationData={setEducationData}
+            setNewEducation={setNewEducation}
+            newEducation={newEducation}
+            updateEducationData={updateEducationData}
+            addEducationEntry={addEducationEntry}
           />
 
           <ExperienceForm
             experienceData={experienceData}
+            setExperienceData={setExperienceData}
+            setNewExperience={setNewExperience}
+            newExperience={newExperience}
             updateExperienceData={updateExperienceData}
-            hiddenExperience={hiddenExperience}
-            setHiddenExperience={setHiddenExperience}
+            addExperienceEntry={addExperienceEntry}
           />
         </div>
       </div>
@@ -80,9 +98,34 @@ function App() {
         <div className="shadow-2xl overflow-hidden">
           <Header personalData={personalData} />
           <div className="p-8">
-            {hiddenEducation && <Education educationData={educationData} />}
-            {hiddenExperience && <Experience experienceData={experienceData} />}
-            <Skills />
+            {educationData && educationData.length > 0 && (
+              <>
+                <div className="w-full bg-[#585454] p-2  text-white relative flex items-center">
+                  <GiGraduateCap className="w-10 h-10 border border-[#474444] rounded-full p-2 absolute bg-white text-[#474444]" />
+                  <p className="text-2xl font-bold ml-14 uppercase">
+                    Education
+                  </p>
+                </div>
+                {educationData.map((data, index) => (
+                  <Education key={index} edata={data} />
+                ))}
+              </>
+            )}
+
+            {experienceData && experienceData.length > 0 && (
+              <>
+                <div className=" w-full  bg-[#585454] p-2 text-white relative flex items-center">
+                  <MdWork className="w-10 h-10 border border-[#474444] rounded-full p-2 absolute bg-white text-[#474444]" />
+
+                  <p className="text-2xl font-bold ml-14 uppercase">
+                    Work Experiences
+                  </p>
+                </div>
+                {experienceData.map((data, index) => (
+                  <Experience key={index} edata={data} />
+                ))}
+              </>
+            )}
           </div>
         </div>
       </div>

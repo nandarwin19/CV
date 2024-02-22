@@ -29,6 +29,16 @@ h2 {
   font-size: 20px;
 }
 
+.game-bg {
+  background-image: url("/game.gif");
+}
+
+.lost-bg {
+  background-image: url("/sad.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
 .max-container {
   @apply w-[95%] tablet:w-[85%] mx-auto py-8 px-4 tablet:px-0;
 }

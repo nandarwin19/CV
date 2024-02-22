@@ -16,6 +16,11 @@ const GetStarted = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
+      <img
+        src="/getStarted.gif"
+        className="w-full fixed inset-0 h-screen -z-20"
+        alt=""
+      />
       <h1 className="game-font text-xl tablet:text-[40px]">Memory Card Game</h1>
       <p className="my-4 text-red-600 uppercase text-[15px] tablet:text-xl">
         Warming: Don't click on the same card twice!

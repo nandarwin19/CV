@@ -17,6 +17,10 @@ body {
   color: #faf7f7;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
 h1 {
   font-family: "Kode Mono", monospace;
   font-size: 40px;
@@ -43,6 +47,40 @@ h2 {
   animation: flip 0.5s ease-out alternate 2;
 }
 
-.game-over-font {
+.game-font {
   font-family: "Press Start 2P", system-ui;
+}
+
+/* shimmer  */
+
+.shimmer .image-card {
+  height: 350px;
+  width: 280px;
+  border-radius: 8px;
+}
+
+.wrapper {
+  width: 0px;
+  animation: fullView 0.5s forwards ease-in-out;
+}
+
+@keyframes fullView {
+  100% {
+    width: 100%;
+  }
+}
+.animate {
+  animation: shimmer 3s;
+  animation-iteration-count: infinite;
+  background: linear-gradient(to right, #dddddd 5%, #c7c7c7 25%, #d5d5d5 35%);
+  background-size: 1000px 100%;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -1000px 0;
+  }
+  to {
+    background-position: 1000px 0;
+  }
 }

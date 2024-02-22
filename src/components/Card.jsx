@@ -10,7 +10,7 @@ const Card = ({ data, checkingNames, flip }) => {
     >
       <img
         src={data?.sprites?.other?.dream_world?.front_default}
-        alt={data}
+        alt={data.name}
         className="w-full h-[87%] object-center"
       />
       <p className="text-center my-1 text-xl font-bold">{data.name}</p>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Card from "./Card";
+import PropTypes from "prop-types";
 
 // Function to shuffle the array
 function shuffleArray(array) {
@@ -17,19 +18,19 @@ const Cards = ({
   setHighScore,
   outcome,
   setOutcome,
-  displayResult,
   setDisplayResult,
 }) => {
   const [pokemonData, setPokemonData] = useState([]);
   const [includedName, setIncludedName] = useState([]);
   const [flip, setFlip] = useState(false);
+  const [shimmer, setShimmer] = useState(true);
 
   // Fetch pokemon data
   useEffect(() => {
     async function fetchData() {
       try {
         const cards = [];
-        for (let i = 1; i <= 4; i++) {
+        for (let i = 1; i <= 12; i++) {
           const response = await fetch(
             `https://pokeapi.co/api/v2/pokemon/${i}/`
           );
@@ -37,6 +38,7 @@ const Cards = ({
           cards.push(data);
         }
         setPokemonData(cards);
+        setShimmer(false);
       } catch (error) {
         console.error(error);
       }
@@ -61,7 +63,7 @@ const Cards = ({
         setHighScore(score + 1);
       }
 
-      if (includedName.length + 1 === 4) {
+      if (includedName.length + 1 === 12) {
         setOutcome("WIN");
         setDisplayResult(true);
         // alert("YOU WIN");
@@ -87,19 +89,37 @@ const Cards = ({
   }
 
   return (
-    <div className="py-10 flex flex-wrap w-full mx-auto gap-4">
-      {pokemonData.map((pokemon) => (
-        <div key={pokemon.id}>
-          <Card
-            key={pokemon.id}
-            flip={flip}
-            data={pokemon}
-            checkingNames={checkingNames}
-          />
-        </div>
-      ))}
+    <div className={`py-10 flex flex-wrap w-full mx-auto gap-4`}>
+      {shimmer
+        ? Array.from({ length: 12 }).map((_, index) => (
+            <div key={index} className="shimmer">
+              <div className="wrapper">
+                <div className="image-card animate"></div>
+              </div>
+            </div>
+          ))
+        : pokemonData.map((pokemon) => (
+            <div key={pokemon.id}>
+              <Card
+                key={pokemon.id}
+                flip={flip}
+                data={pokemon}
+                checkingNames={checkingNames}
+              />
+            </div>
+          ))}
     </div>
   );
+};
+
+Cards.propTypes = {
+  score: PropTypes.number,
+  setScore: PropTypes.number,
+  highScore: PropTypes.number,
+  setHighScore: PropTypes.number,
+  outcome: PropTypes.string,
+  setOutcome: PropTypes.bool,
+  setDisplayResult: PropTypes.bool,
 };
 
 export default Cards;

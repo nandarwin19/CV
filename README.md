@@ -9,4 +9,4 @@
 [CV Live Demo](https://65ae299a31747e078735960d--luxury-madeleine-fc7e9c.netlify.app/)
 
 ## Memory Cards Game
-[Memory Cards Game Live demo](https://65d78b35568a5920d7fcb1f9--effervescent-sherbet-d2d366.netlify.app/)
+[Memory Cards Game Live demo](https://65d793ecaacb781f691c85a0--cheery-faun-c966dd.netlify.app/)

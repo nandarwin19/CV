@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Kode+Mono&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Kode Mono", monospace;
+}
+
+body {
+  background-color: #121212;
+  color: #faf7f7;
+}
+
+h1 {
+  font-family: "Kode Mono", monospace;
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+.max-container {
+  @apply w-[1200px] mx-auto py-8;
+}

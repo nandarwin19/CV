@@ -16,13 +16,13 @@ const GetStarted = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
-      <h1 className="game-font ">Memory Card Game</h1>
-      <p className="my-2 text-red-600 uppercase text-xl">
+      <h1 className="game-font text-xl tablet:text-[40px]">Memory Card Game</h1>
+      <p className="my-4 text-red-600 uppercase text-[15px] tablet:text-xl">
         Warming: Don't click on the same card twice!
       </p>
       <button
         onClick={handleClick}
-        className="flex gap-2 items-center justify-center my-2 p-2 border bg-[#0e0d0d] border-gray-400"
+        className="flex gap-2 text-sm tablet:text-xl items-center justify-center my-2 p-2 border bg-[#0e0d0d] border-gray-400"
       >
         Get Started
         {loading ? <FaSpinner className="animate-spin mr-2" /> : ""}

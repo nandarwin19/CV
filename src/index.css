@@ -23,7 +23,6 @@ body {
 
 h1 {
   font-family: "Kode Mono", monospace;
-  font-size: 40px;
 }
 
 h2 {
@@ -31,7 +30,7 @@ h2 {
 }
 
 .max-container {
-  @apply w-[1200px] mx-auto py-8;
+  @apply w-[95%] tablet:w-[85%] mx-auto py-8 px-4 tablet:px-0;
 }
 
 @keyframes flip {
@@ -53,12 +52,6 @@ h2 {
 
 /* shimmer  */
 
-.shimmer .image-card {
-  height: 350px;
-  width: 280px;
-  border-radius: 8px;
-}
-
 .wrapper {
   width: 0px;
   animation: fullView 0.5s forwards ease-in-out;
@@ -72,7 +65,7 @@ h2 {
 .animate {
   animation: shimmer 3s;
   animation-iteration-count: infinite;
-  background: linear-gradient(to right, #dddddd 5%, #c7c7c7 25%, #d5d5d5 35%);
+  background: linear-gradient(to right, #cecece 5%, #b4b4b4 25%, #cacaca 35%);
   background-size: 1000px 100%;
 }
 

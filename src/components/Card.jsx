@@ -4,7 +4,7 @@ const Card = ({ data, checkingNames, flip }) => {
   return (
     <div
       onClick={() => checkingNames(data.name)}
-      className={`cursor-pointer bg-[#e2e5de] w-[280px] h-[350px] text-[#121212] border border-gray-300 rounded-md shadow-2xl ${
+      className={`hover:scale-105 duration-300 ease-in-out cursor-pointer bg-[#e2e5de] w-40 h-52 tablet:w-[280px] tablet:h-[350px] text-[#121212] border border-gray-300 rounded-md shadow-2xl ${
         flip ? "flip" : ""
       }`}
     >
@@ -13,7 +13,9 @@ const Card = ({ data, checkingNames, flip }) => {
         alt={data.name}
         className="w-full h-[87%] object-center"
       />
-      <p className="text-center my-1 text-xl font-bold">{data.name}</p>
+      <p className="text-center my-1 text-sm tablet:text-xl font-bold">
+        {data.name}
+      </p>
     </div>
   );
 };

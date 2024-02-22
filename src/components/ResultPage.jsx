@@ -18,7 +18,7 @@ const ResultPage = ({ outcome, result, setDisplayResult }) => {
         result ? "flex" : "hidden"
       } game-font items-center flex-col justify-center`}
     >
-      <p className="text-[120px]">YOU {outcome}</p> <br />
+      <p className="text-[40px] tablet:text-[120px]">YOU {outcome}</p> <br />
       <p className="text-xl">Would you like to play again?</p>
       <div className="w-full gap-5 max-w-[230px] my-5 flex items-center justify-between">
         <button className="w-32 bg-black h-10 " onClick={handlePlayAgain}>

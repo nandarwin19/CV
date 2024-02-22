@@ -11,10 +11,12 @@ function Game() {
   return (
     <div className="max-container">
       <header className="flex items-center justify-between">
-        <h1>Pokémon!</h1>
+        <h1 className="text-2xl tablet:text-[40px]">Pokémon!</h1>
         <div>
-          <h2>High Score: {highScore}</h2>
-          <h2>Score: {score}</h2>
+          <h2 className="text-[16px] tablet:text-xl">
+            High Score: {highScore}
+          </h2>
+          <h2 className="text-[16px]  tablet:text-xl">Score: {score}</h2>
         </div>
       </header>
       <section className="w-full py-4">

@@ -89,17 +89,19 @@ const Cards = ({
   }
 
   return (
-    <div className={`py-10 flex flex-wrap w-full mx-auto gap-4`}>
+    <div
+      className={`py-10 flex  flex-row max-auto flex-wrap justify-between w-full`}
+    >
       {shimmer
         ? Array.from({ length: 12 }).map((_, index) => (
             <div key={index} className="shimmer">
-              <div className="wrapper">
-                <div className="image-card animate"></div>
+              <div className="wrapper my-4">
+                <div className=" animate   w-40 h-52 tablet:w-[280px] tablet:h-[350px] text-[#121212] border border-gray-300 rounded-md shadow-2xl"></div>
               </div>
             </div>
           ))
         : pokemonData.map((pokemon) => (
-            <div key={pokemon.id}>
+            <div key={pokemon.id} className="my-4">
               <Card
                 key={pokemon.id}
                 flip={flip}
